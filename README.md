@@ -1,3 +1,3 @@
 ## Slack-Clone 
 
-React.js, Material UI, Firebase
+React.js, Redux, Material UI, Firebase

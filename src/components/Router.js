@@ -6,13 +6,27 @@ import {
 } from "react-router-dom";
 
 import Header from 'components/Header';
+import Sidebar from 'components/Sidebar';
+import styled from 'styled-components';
+
+const AppBody = styled.div`
+    display: flex;
+    height: 100vh;
+ 
+`
 
 const MainRouter = () => {
     return(
         <Router>
-            <Switch>
-                <Route path="/" exact ><Header /></Route>
-            </Switch>
+            <>
+                <Header />
+                <AppBody>
+                    <Sidebar />
+                    <Switch>
+                        <Route path="/" exact ></Route>
+                    </Switch>
+                </AppBody>
+            </>
         </Router>
     )
 }
