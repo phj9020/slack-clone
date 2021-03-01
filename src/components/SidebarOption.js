@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {dbService} from "fbase";
+import { enterRoom } from "features/appSlice";
 
 
 const SidebarOptionContainer = styled.div`
@@ -33,20 +35,24 @@ const SidebarOptionChannel = styled.h3`
 
 function SidebarOption({ Icon, title, addChannelOption, id }) {
 
- 
+  const dispatch = useDispatch()
 
-
-  const addChannel = ()=> {
+  const addChannel = async()=> {
     const channelName = prompt("Please Enter the Channel Name");
 
     if(channelName) {
-        dbService.collection("rooms").add({
+        await dbService.collection("rooms").add({
             name: channelName
         })
     }
   }
   const selectChannel = () => {
-
+    // use redux : push my Roomid to redux store
+    if(id) {
+      dispatch(enterRoom({
+        roomId: id
+      }))
+    }
   }
 
   return (

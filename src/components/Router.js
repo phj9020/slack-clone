@@ -7,6 +7,7 @@ import {
 
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
+import Chat from 'components/Chat';
 import styled from 'styled-components';
 
 const AppBody = styled.div`
@@ -23,7 +24,7 @@ const MainRouter = () => {
                 <AppBody>
                     <Sidebar />
                     <Switch>
-                        <Route path="/" exact ></Route>
+                        <Route path="/" exact ><Chat /></Route>
                     </Switch>
                 </AppBody>
             </>
