@@ -73,9 +73,9 @@ const SidebarInfo = styled.div`
     
 `
 
-function Sidebar() {
-    const [channels, loading, error] = useCollection(dbService.collection("rooms"));
-
+function Sidebar({user}) {
+    const [channels] = useCollection(dbService.collection("rooms"));
+    console.log(user)
     return (
         <SidebarContainer>
             <SidebarHeader>
@@ -83,7 +83,7 @@ function Sidebar() {
                     <h2>HJP FAM</h2>
                     <h3>
                         <FiberManualRecordIcon />
-                        Han Jin Park
+                        {user.displayName}
                     </h3>
                 </SidebarInfo>
                 <CreateIcon />

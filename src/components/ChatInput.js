@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {dbService} from "fbase";
 import firebase from "firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {authService} from 'fbase';
+
 
 const ChatInputContainer = styled.div`
     > form {
@@ -28,6 +31,7 @@ const ChatInputContainer = styled.div`
 
 function ChatInput({channelId, channelName, chatRef}) {
     const [input, setInput] = useState("");
+    const [user] = useAuthState(authService);
 
     const onChange = (e) => {
         const { target : { value }} = e; 
@@ -44,8 +48,8 @@ function ChatInput({channelId, channelName, chatRef}) {
         await dbService.collection("rooms").doc(channelId).collection("messages").add({
             message: input,
             timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-            user: 'Han jin',
-            userImage: 'https://avatars.githubusercontent.com/u/26403885?s=460&v=4'
+            user: user.displayName,
+            userImage: user.photoURL
         });
 
         chatRef.current.scrollIntoView({behavior:"smooth"});

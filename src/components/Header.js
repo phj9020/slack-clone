@@ -4,6 +4,7 @@ import { Avatar } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import SearchIcon from '@material-ui/icons/Search';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { authService } from "fbase";
 
 const HeaderContainer = styled.div`
     width: 100%;
@@ -77,13 +78,11 @@ const HeaderRight = styled.div`
 
 
 
-const Header = ()=>{
+const Header = ({user})=>{
     return(
         <HeaderContainer>
             <HeaderLeft>
-                <HeaderAvatar
-                    // Todo: onClick
-                />
+                <HeaderAvatar onClick={()=> authService.signOut()} src={user?.photoURL} alt={user?.displayName} />
                 <AccessTimeIcon />
             </HeaderLeft>
             <HeaderSearch>
