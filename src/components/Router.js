@@ -60,7 +60,7 @@ const MainRouter = () => {
         <>
           <Header user={user} />
           <AppBody>
-            <Sidebar user={user} />
+            <Sidebar />
             <Switch>
               <Route path="/" exact>
                 <Chat />

@@ -15,6 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import {dbService} from "fbase";
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {authService} from 'fbase';
 
 const SidebarContainer = styled.div`
     background-color: var(--slack-color);
@@ -73,9 +75,17 @@ const SidebarInfo = styled.div`
     
 `
 
-function Sidebar({user}) {
+function Sidebar() {
     const [channels] = useCollection(dbService.collection("rooms"));
-    console.log(user)
+    const [user] = useAuthState(authService);
+ 
+    const changeDisplayName = () => {
+        let changeDisplayName = prompt("Change your DisplayName");
+        if(changeDisplayName !== ""){
+            user.updateProfile({displayName : changeDisplayName});
+        }
+    }
+
     return (
         <SidebarContainer>
             <SidebarHeader>
@@ -86,7 +96,7 @@ function Sidebar({user}) {
                         {user.displayName}
                     </h3>
                 </SidebarInfo>
-                <CreateIcon />
+                <CreateIcon onClick={changeDisplayName} />
             </SidebarHeader>
 
             <SidebarOption Icon={InsertCommentIcon} title="Threads" />
